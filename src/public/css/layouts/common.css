@@ -1,0 +1,91 @@
+/* 全世代に愛される「明るいパレット」の基盤 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", "Noto Serif JP", serif;
+    background-color: #fdfaf5;
+    color: #3d342f;
+    overflow-x: hidden;
+}
+
+.app-header {
+    height: 110px; /* 文字拡大に合わせて少し高さを追加 */
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95); /* より白くして視認性をアップ */
+    backdrop-filter: blur(10px);
+    border-bottom: 3px solid #f2e9de;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-logo h1 {
+    font-size: 1.8rem; /* 1.4remから拡大 */
+    color: #e67e22;
+    font-weight: 900;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.header-logo h1 span {
+    font-size: 0.9rem; /* 0.75remから拡大 */
+    color: #a69080;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+}
+
+.header-nav {
+    display: flex;
+    gap: 30px; /* 押し間違えないよう間隔を広げた */
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    padding: 12px 20px; /* クリック領域を広く */
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+/* 英語の補助テキスト */
+.nav-item small {
+    font-size: 0.8rem; /* 0.65remから拡大：小さすぎると読めないため */
+    color: #8c7666; /* 少しだけ濃くして読みやすく */
+    font-weight: 900;
+    margin-bottom: 2px;
+}
+
+/* メインの日本語テキスト */
+.nav-item span {
+    font-size: 1.2rem; /* 1remから拡大：ここが一番大事 */
+    color: #1a1512; /* より深い色にしてコントラストを強化 */
+    font-weight: 800;
+}
+
+.nav-item:hover {
+    background: #fff1e6;
+}
+
+.nav-item.highlight {
+    background: #e67e22;
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.2);
+}
+
+.nav-item.highlight small {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-item.highlight span {
+    color: #ffffff;
+}

@@ -1,0 +1,295 @@
+/* ==========================================================
+   FamilyPalette 登録画面：全世代対応・視認性特化版
+   ========================================================== */
+
+/* --- 1. ベースキャンバス --- */
+.art-canvas {
+    display: flex;
+    min-height: 100vh;
+    background: #fdfaf5;
+    overflow-x: hidden;
+    font-family: 'Noto Sans JP', sans-serif;
+    flex-direction: row;
+}
+
+/* --- 2. 左側：ビジュアルセクション --- */
+.visual-section {
+    flex: 1.2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 60px 0 60px 8%;
+    z-index: 10;
+}
+
+.watercolor-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.paint {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.45;
+}
+
+.paint-top-pink {
+    width: 600px;
+    height: 600px;
+    background: #ff0077;
+    top: -15%;
+    left: -10%;
+}
+
+.paint-bottom-blue {
+    width: 700px;
+    height: 700px;
+    background: #00ccff;
+    bottom: -20%;
+    left: 5%;
+}
+
+.paint-center-yellow {
+    width: 500px;
+    height: 500px;
+    background: #ffcc00;
+    top: 20%;
+    left: 35%;
+    opacity: 0.3;
+}
+
+/* --- 3. 左側の文字：スポットライト --- */
+.text-group {
+    position: relative;
+    z-index: 10;
+    padding: 40px;
+}
+
+.text-group::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.4) 50%, transparent 75%);
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.main-copy {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900;
+    color: #1a1512;
+    line-height: 1.1;
+    text-shadow: 0 0 30px #fdfaf5, 0 0 15px #fdfaf5;
+}
+
+.accent-stroke {
+    color: #e67e22;
+    text-shadow: 0 0 15px rgba(230, 126, 34, 0.4);
+}
+
+.sub-copy {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #3d342f;
+    margin-top: 30px;
+    line-height: 1.8;
+}
+
+/* --- 4. 右側：フォームセクション --- */
+.form-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+    z-index: 20;
+}
+
+.palette-input-area {
+    width: 100%;
+    max-width: 420px;
+}
+
+.creative-field {
+    position: relative;
+    margin-bottom: 55px;
+    /* エラー表示用に余白を少し拡大 */
+    /* 下線の色をラベル（#a69080）と統一。エラー時も変えない */
+    border-bottom: 2px solid #a69080;
+}
+
+.creative-field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 15px 5px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1512;
+    outline: none;
+    position: relative;
+    z-index: 2;
+}
+
+.creative-field label {
+    position: absolute;
+    left: 5px;
+    top: 18px;
+    color: #a69080;
+    /* ラベルの色 */
+    font-size: 1.1rem;
+    font-weight: 700;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    z-index: 3;
+}
+
+/* ブラウザの自動赤線を完全にリセット */
+.creative-field input:invalid,
+.creative-field input.is-invalid,
+.creative-field input:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.creative-field input:focus~label,
+.creative-field input:not(:placeholder-shown)~label {
+    top: -25px;
+    font-size: 0.85rem;
+    color: #1a1512;
+}
+
+.ink-splash {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 100%;
+    opacity: 0;
+    transition: width 0.7s ease-out, opacity 0.4s;
+    z-index: 1;
+    filter: blur(20px);
+    border-radius: 20px;
+}
+
+.splash-pink {
+    background: rgba(255, 0, 119, 0.28);
+}
+
+.splash-blue {
+    background: rgba(0, 204, 255, 0.25);
+}
+
+.splash-yellow {
+    background: rgba(255, 204, 0, 0.3);
+}
+
+.creative-field input:focus~.ink-splash,
+.creative-field input:not(:placeholder-shown)~.ink-splash {
+    width: 120%;
+    opacity: 1;
+}
+
+/* --- 5. エラーメッセージ（強力な白縁取り・視認性特化） --- */
+.error-message {
+    display: block;
+    color: #d63031;
+    /* ハッキリした赤 */
+    font-size: 1.25rem;
+    font-weight: 900;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    padding-left: 2px;
+    position: relative;
+    z-index: 10;
+
+    /* 背景の滲みに負けないための強力な白縁取り */
+    text-shadow:
+        2px 2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px -2px 0 #fff,
+        0px 0px 10px rgba(255, 255, 255, 1);
+}
+
+/* --- 6. 登録ボタン --- */
+.finish-button {
+    width: 100%;
+    padding: 22px;
+    background: #1a1512;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+.finish-button:hover {
+    background: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(230, 126, 34, 0.2);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.login-link a {
+    color: #a69080;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* --- 7. モバイル最適化 --- */
+@media (max-width: 1024px) {
+    .art-canvas {
+        flex-direction: column;
+        padding-top: 110px;
+    }
+
+    .visual-section {
+        width: 100%;
+        padding: 40px 5%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .form-section {
+        width: 100%;
+        padding: 20px 20px 80px;
+    }
+
+    .palette-input-area {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-copy {
+        font-size: 2.5rem;
+    }
+
+    .sub-copy {
+        font-size: 1.1rem;
+    }
+
+    .creative-field input {
+        font-size: 1.2rem;
+    }
+}
