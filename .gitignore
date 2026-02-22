@@ -1,0 +1,19 @@
+# --- Docker関係 (DBの実データなどを除外) ---
+docker/mysql/data/*
+!docker/mysql/data/.gitkeep
+
+# --- Laravel関係 (srcフォルダ配下のパスを指定) ---
+src/.env
+src/vendor/
+src/node_modules/
+src/public/storage
+src/storage/*.key
+src/storage/framework/cache/data/*
+src/storage/framework/sessions/*
+src/storage/framework/views/*.php
+src/storage/logs/*.log
+
+# --- OS・エディタ関係 ---
+.DS_Store
+.vscode/
+.idea/
