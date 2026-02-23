@@ -1,3 +1,6 @@
+# FamilyPalette ER図
+
+```mermaid
 erDiagram
     families ||--o{ users : "1:N (所属)"
     families ||--o{ schedules : "1:N (共有)"
